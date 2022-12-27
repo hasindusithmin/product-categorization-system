@@ -13,6 +13,18 @@ productRouter.get('/',async(req,res)=>{
     }
 })
 
+productRouter.get('/sort/:category',async(req,res)=>{
+    try {
+        const {category} = req.params
+        const PRODUCTS = await PRODUCT_MODEL.find({})
+        if (PRODUCTS.length == 0) throw Error("No data found.")
+        PRODUCTS.sort((a,b)=>a.category[0]>b[category][0])
+        res.status(200).json(PRODUCTS)
+    } catch (error) {
+        res.status(500).json({ERROR:error.message})
+    }
+})
+
 productRouter.get('/multiple',async(req,res)=>{
     try {
         const {categories} = req.body;
