@@ -35,7 +35,8 @@ app.use('/product',productRouter)
 app.use('/category',categoryRouter)
 
 mongoose.set('strictQuery',true)
-mongoose.connect(process.env.MONGODB_URL)
+const MONGO_URL = process.env.MONGODB_URL
+mongoose.connect(MONGO_URL)
     .then(()=>{
         app.listen(3000,()=>{
             console.log('DB CONNECTED\nSERVER RUNNING:3000');
