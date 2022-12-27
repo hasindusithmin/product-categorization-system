@@ -3,6 +3,7 @@ import express from "express"
 import mongoose from "mongoose"
 import productRouter from "./router/product.js"
 import categoryRouter from "./router/category.js"
+import fileUpload from "express-fileupload"
 
 const app = express()
 
@@ -11,6 +12,24 @@ app.get('/',(req,res)=>{
 })
 
 app.use(express.json())
+app.use(fileUpload());
+app.use('/uploads',express.static('uploads'))
+
+app.post('/upload', (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+      let sampleFile = req.files.image;
+  
+    sampleFile.mv(`./uploads/${Date.now()}_${sampleFile.name}`, function(err) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+  
+      res.json({DIR:`/uploads/${Date.now()}_${sampleFile.name}`});
+    });
+  });
+  
 
 app.use('/product',productRouter)
 app.use('/category',categoryRouter)
