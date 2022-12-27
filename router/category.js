@@ -1,7 +1,7 @@
 
 
 import { Router } from "express";
-import CATEGORY_MODEL from "../models/category";
+import CATEGORY_MODEL from "../models/category.js";
 
 const categoryRouter = Router()
 
@@ -18,6 +18,7 @@ categoryRouter.get('/:id',async(req,res)=>{
     try {
         const {id} = req.params
         const CATEGORY = await CATEGORY_MODEL.findById(id)
+        if (CATEGORY == null) throw Error("Not found")
         res.status(200).json(CATEGORY)
     } catch (error) {
         res.status(500).json({ERROR:error.message})
@@ -38,7 +39,8 @@ categoryRouter.put('/:id',async(req,res)=>{
     try {
         const {id} = req.params
         const {name,slug,sub} = req.body
-        await CATEGORY_MODEL.findByIdAndUpdate(id,{name,slug,sub})
+        const CATEGORY = await CATEGORY_MODEL.findByIdAndUpdate(id,{name,slug,sub})
+        if (CATEGORY == null) throw Error("Not found")
         res.sendStatus(200)
     } catch (error) {
         res.status(500).json({ERROR:error.message})
@@ -48,7 +50,8 @@ categoryRouter.put('/:id',async(req,res)=>{
 categoryRouter.delete('/:id',async(req,res)=>{
     try {
         const {id} = req.params
-        await CATEGORY_MODEL.findByIdAndDelete(id)
+        const CATEGORY = await CATEGORY_MODEL.findByIdAndDelete(id)
+        if (CATEGORY == null) throw Error("Not found")
         res.sendStatus(200)
     } catch (error) {
         res.status(500).json({ERROR:error.message})

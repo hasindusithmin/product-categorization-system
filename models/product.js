@@ -15,7 +15,7 @@ const Product = new Schema({
         type:String,
         required:true
     },
-    maincategory:{
+    category:{
         type:String,
         required:true
     },

@@ -9,7 +9,7 @@ const Category = new Schema({
         required:true
     },
     slug:{
-        type:Number,
+        type:String,
         required:true
     },
     sub:{
