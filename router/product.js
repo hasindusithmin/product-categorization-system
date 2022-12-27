@@ -13,6 +13,17 @@ productRouter.get('/',async(req,res)=>{
     }
 })
 
+productRouter.get('/multiple',async(req,res)=>{
+    try {
+        const {categories} = req.body;
+        const CATEGORIES = categories.map(category=>({category}))
+        const PRODUCTS = await PRODUCT_MODEL.find({$or:CATEGORIES})
+        res.status(200).json(PRODUCTS)
+    } catch (error) {
+        res.status(500).json({ERROR:error.message})
+    }
+})
+
 productRouter.get('/:id',async(req,res)=>{
     try {
         const {id} = req.params;
