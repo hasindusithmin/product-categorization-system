@@ -5,4 +5,4 @@
 - Add, edit, and delete multi-level product categories
 - Easy navigation with sorting facilities
 - Ability to select multiple product categories for each product
-- Upload product images
+- Upload product image
