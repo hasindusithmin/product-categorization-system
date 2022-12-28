@@ -4,5 +4,5 @@
 ### Features
 - Add, edit, and delete multi-level product categories
 - Easy navigation with sorting facilities
-- Ability to select multiple product categories for each product
+- Ability to select multiple product categories for each products
 - Upload product image
